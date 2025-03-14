@@ -3,7 +3,9 @@ class Api::V1::EventsController < ApplicationController
   before_action :set_event, only: [:show, :update, :destroy]
 
   def index
-    @events = Event.all
+    events = Event.all
+    @pagy, @events = pagy(events)
+    @pagination = pagy_metadata(@pagy)
   end
 
   def show; end

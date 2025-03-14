@@ -3,7 +3,9 @@ class Api::V1::BookingsController < ApplicationController
     before_action :set_booking, only: [:show, :update]
     
     def index
-      @bookings = @current_customer_user.bookings
+      bookings = @current_customer_user.bookings
+      @pagy, @bookings = pagy(bookings)
+      @pagination = pagy_metadata(@pagy)
     end
     
     def show; end
