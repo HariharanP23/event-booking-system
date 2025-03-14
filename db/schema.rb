@@ -10,9 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_14_054920) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_14_072447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "booking_tickets", force: :cascade do |t|
+    t.integer "quantity"
+    t.bigint "booking_id", null: false
+    t.bigint "ticket_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_booking_tickets_on_booking_id"
+    t.index ["ticket_id"], name: "index_booking_tickets_on_ticket_id"
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.datetime "booking_date"
+    t.decimal "total_price"
+    t.string "status"
+    t.bigint "customer_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_bookings_on_customer_id"
+    t.index ["event_id"], name: "index_bookings_on_event_id"
+  end
 
   create_table "customers", force: :cascade do |t|
     t.string "email"
@@ -58,6 +80,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_14_054920) do
     t.index ["event_id"], name: "index_tickets_on_event_id"
   end
 
+  add_foreign_key "booking_tickets", "bookings"
+  add_foreign_key "booking_tickets", "tickets"
+  add_foreign_key "bookings", "customers"
+  add_foreign_key "bookings", "events"
   add_foreign_key "events", "event_organizers"
   add_foreign_key "tickets", "events"
 end
