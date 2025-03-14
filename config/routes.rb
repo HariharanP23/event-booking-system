@@ -12,7 +12,11 @@ Rails.application.routes.draw do
       
       post '/customer/register', to: 'registration#register_customer'
       post '/customer/login', to: 'authentication#login_customer'
-
+ 
+      resources :events do
+        resources :tickets
+      end
+      
     end
   end
 end

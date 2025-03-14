@@ -2,9 +2,9 @@ class ApplicationController < ActionController::API
 
   private
 
-  def current_organizer_user
+  def current_event_organizer
     payload = JWT.decode(request.headers["Authorization"].split(" ").last, ENV.fetch("ACCESS_TOKEN_SECRET", "sdf"), true, { algorithm: "HS256" })
-    @current_organizer_user = User.find_by(id: payload[0]["user_id"])
+    @current_event_organizer = EventOrganizer.find_by(id: payload[0]["user_id"])
   rescue JWT::ExpiredSignature
     render_error("Access token expired", 401)
   rescue JWT::DecodeError
@@ -13,7 +13,7 @@ class ApplicationController < ActionController::API
 
   def current_customer_user
     payload = JWT.decode(request.headers["Authorization"].split(" ").last, ENV.fetch("ACCESS_TOKEN_SECRET", "sdf"), true, { algorithm: "HS256" })
-    @current_customer_user = User.find_by(id: payload[0]["user_id"])
+    @current_customer_user = Customer.find_by(id: payload[0]["user_id"])
   rescue JWT::ExpiredSignature
     render_error("Access token expired", 401)
   rescue JWT::DecodeError
