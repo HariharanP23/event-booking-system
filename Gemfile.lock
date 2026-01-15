@@ -77,7 +77,7 @@ GEM
     bcrypt (3.1.20)
     benchmark (0.4.0)
     bigdecimal (3.1.9)
-    bootsnap (1.18.4)
+    bootsnap (1.21.1)
       msgpack (~> 1.2)
     brakeman (7.0.0)
       racc
@@ -135,6 +135,9 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.3-x86_64-linux-gnu)
       racc (~> 1.4)
+    pagy (43.2.4)
+      json
+      yaml
     parallel (1.26.3)
     parser (3.3.7.1)
       ast (~> 2.4.1)
@@ -237,6 +240,7 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    yaml (0.4.0)
     zeitwerk (2.7.2)
 
 PLATFORMS
@@ -250,6 +254,7 @@ DEPENDENCIES
   debug
   jbuilder
   jwt (~> 2.7)
+  pagy
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.2.2)
